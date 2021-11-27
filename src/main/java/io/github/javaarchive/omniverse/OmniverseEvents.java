@@ -34,7 +34,7 @@ public class OmniverseEvents implements Listener {
     public void onJoin(PlayerJoinEvent event) {
         this.plugin.getLogger().log(Level.INFO, "Player " + event.getPlayer().getName() + " is joining! Redirecting to world if needed");
         if(this.plugin.getConfig().contains("wildcard_suffix") && uuidToHost.get(event.getPlayer().getUniqueId()).endsWith(this.plugin.getConfig().getString("wildcard_suffix"))){
-            
+            // redirect to apporiate server
         }else{
             // Lobby!
             event.getPlayer().teleport(Bukkit.getWorld("lobby").getSpawnLocation());

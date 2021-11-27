@@ -21,7 +21,7 @@ public final class Omniverse extends JavaPlugin {
         try {
             this.db = factory.open(new File(this.getConfig().getString("db_path")),options);
         } catch (IOException e) {
-            System.out.println("Could not init database");
+            System.out.println("Critical Error: Could not init database");
             e.printStackTrace();
             System.exit(1); // bring the server down!
         }
