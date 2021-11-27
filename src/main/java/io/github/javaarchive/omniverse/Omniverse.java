@@ -7,6 +7,8 @@ import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.Bukkit;
 
 public final class Omniverse extends JavaPlugin {
+    OmniverseEvents eventListener;
+
     Options options;
     DB db;
 
@@ -23,11 +25,22 @@ public final class Omniverse extends JavaPlugin {
             e.printStackTrace();
             System.exit(1); // bring the server down!
         }
+
+        this.eventListener = new OmniverseEvents(this);
     }
 
     @Override
     public void onDisable() {
         // Plugin shutdown logic
         this.saveConfig();
+    }
+
+    // Database stuff
+    public String db_get(String key){
+        return asString(db.get(bytes(key)));
+    }
+
+    public void db_set(String key, String value){
+        db.put(bytes(key), bytes(value));
     }
 }
