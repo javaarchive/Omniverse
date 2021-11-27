@@ -1,0 +1,6 @@
+name: Omniverse
+version: '${project.version}'
+main: io.github.javaarchive.omniverse.Omniverse
+prefix: [ Omniverse ]
+load: STARTUP
+description: Open-source hypixel housing like system that I build in my freetime
