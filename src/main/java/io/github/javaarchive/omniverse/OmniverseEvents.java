@@ -7,6 +7,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerLoginEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
+import org.bukkit.event.world.WorldLoadEvent;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -37,7 +38,7 @@ public class OmniverseEvents implements Listener {
             // redirect to apporiate server
         }else{
             // Lobby!
-            event.getPlayer().teleport(Bukkit.getWorld("lobby").getSpawnLocation());
+            event.getPlayer().teleport(this.plugin.lobby.getSpawn());
         }
     }
 
@@ -45,5 +46,12 @@ public class OmniverseEvents implements Listener {
     public void onQuit(PlayerQuitEvent event) {
         this.plugin.getLogger().log(Level.INFO, "Player " + event.getPlayer().getName() + " is quiting!");
         uuidToHost.remove(event.getPlayer().getUniqueId());
+    }
+
+    @EventHandler
+    public void onWorldLoad(WorldLoadEvent event){
+        if(event.getWorld().getName().equals("world")){
+            this.plugin.getLobby().autocreateWorld();
+        }
     }
 }

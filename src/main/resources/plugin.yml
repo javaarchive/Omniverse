@@ -4,3 +4,31 @@ main: io.github.javaarchive.omniverse.Omniverse
 prefix: [ Omniverse ]
 load: STARTUP
 description: Open-source hypixel housing like system that I build in my freetime
+
+database: true
+
+author: javaarchive
+# If you feel like contributing please switch the above line to use "authors"
+
+commands:
+  create:
+    description: Create a whole new multiverse (a set of worlds) or universe.
+    aliases: [create_universe, create_multiverse, new_universe, new_mutliverse]
+    permission: omniverse.universe.create
+
+permissions:
+  omniverse.*:
+    description: Unlimited access. Use for admins!
+    children:
+      omniverse.universe.create: true
+      omniverse.universe.extend_multiverse: true
+      omniverse.universe.linking: true
+  omniverse.universe.create:
+    default: true
+    description: Allows a user to create their own universe.
+  omniverse.universe.extend_multiverse:
+    default: false
+    description: Allows a user to turn their universe into a multiverse by adding more worlds!
+  omniverse.universe.linking:
+    description: Allows linking to other universes
+    default: false
