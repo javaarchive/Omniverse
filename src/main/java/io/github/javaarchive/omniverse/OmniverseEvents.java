@@ -24,7 +24,7 @@ public class OmniverseEvents implements Listener {
     @EventHandler
     public void onLogin(PlayerLoginEvent event) {
         this.plugin.getLogger().log(Level.INFO, "Player " + event.getPlayer().getName() + " is logging in! ");
-        if(this.plugin.getConfig().contains("wildcard_suffix") && event.getHostname().endsWith(this.plugin.getConfig().getString("wildcard_suffix"))){
+        if(this.plugin.config.contains("wildcard_suffix") && event.getHostname().endsWith(this.plugin.config.getString("wildcard_suffix"))){
 
         }
         uuidToHost.put(event.getPlayer().getUniqueId(),event.getHostname());
@@ -34,10 +34,14 @@ public class OmniverseEvents implements Listener {
     @EventHandler
     public void onJoin(PlayerJoinEvent event) {
         this.plugin.getLogger().log(Level.INFO, "Player " + event.getPlayer().getName() + " is joining! Redirecting to world if needed");
-        if(this.plugin.getConfig().contains("wildcard_suffix") && uuidToHost.get(event.getPlayer().getUniqueId()).endsWith(this.plugin.getConfig().getString("wildcard_suffix"))){
-            // redirect to apporiate server
+        if(this.plugin.config.contains("wildcard_suffix") && uuidToHost.get(event.getPlayer().getUniqueId()).endsWith(this.plugin.config.getString("wildcard_suffix"))){
+            // TODO: redirect to apporiate server
+            event.getPlayer().sendMessage("Redirecting you to the appropriate multiverse/universe. ");
         }else{
             // Lobby!
+            if(this.plugin.getConfig().contains("lobby_welcome_message")) {
+                event.getPlayer().sendMessage(this.plugin.config.getString("lobby_welcome_message"));
+            }
             event.getPlayer().teleport(this.plugin.lobby.getSpawn());
         }
     }

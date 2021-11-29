@@ -6,6 +6,7 @@ import io.github.javaarchive.omniverse.database.LevelDatabase;
 import lombok.Getter;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.iq80.leveldb.*;
 import static org.iq80.leveldb.impl.Iq80DBFactory.*;
 import java.io.*;
@@ -17,6 +18,8 @@ public final class Omniverse extends JavaPlugin {
     Database db;
     DatabaseOptions dbOpts;
 
+    public FileConfiguration config; // public so not to be confused with the original getConfig
+
     @Getter
     Lobby lobby;
 
@@ -24,8 +27,16 @@ public final class Omniverse extends JavaPlugin {
     public void onEnable() {
         // Plugin startup logic
         this.saveDefaultConfig();
+        this.config = this.getConfig();
+
+
+
+        config.options().copyDefaults(true);
+        saveConfig();
+
+
         this.dbOpts = new DatabaseOptions();
-        this.dbOpts.setDbFile(new File(this.getConfig().getString("db_path")));
+        this.dbOpts.setDbFile(new File(this.config.getString("db_path")));
         this.db = new LevelDatabase(this.dbOpts);
 
         this.eventListener = new OmniverseEvents(this);
