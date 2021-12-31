@@ -42,20 +42,22 @@ public class OmniverseEvents implements Listener {
             if(this.plugin.getConfig().contains("lobby_welcome_message")) {
                 event.getPlayer().sendMessage(this.plugin.config.getString("lobby_welcome_message"));
             }
-            event.getPlayer().teleport(this.plugin.lobby.getSpawn());
+            if(this.plugin.config.contains("should_auto_tp_to_lobby_on_join") && this.plugin.config.getBoolean("should_auto_tp_to_lobby_on_join")) {
+                event.getPlayer().teleport(this.plugin.lobby.getSpawn());
+            }
         }
     }
 
     @EventHandler
     public void onQuit(PlayerQuitEvent event) {
         this.plugin.getLogger().log(Level.INFO, "Player " + event.getPlayer().getName() + " is quiting!");
-        uuidToHost.remove(event.getPlayer().getUniqueId());
+        uuidToHost.remove(event.getPlayer().getUniqueId()); // memory leak prevention
     }
 
     @EventHandler
     public void onWorldLoad(WorldLoadEvent event){
         if(event.getWorld().getName().equals("world")){
-            this.plugin.getLobby().autocreateWorld();
+            // this.plugin.getLobby().autocreateWorld();
         }
     }
 }

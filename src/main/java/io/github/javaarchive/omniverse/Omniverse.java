@@ -29,7 +29,7 @@ public final class Omniverse extends JavaPlugin {
         this.saveDefaultConfig();
         this.config = this.getConfig();
 
-
+        
 
         config.options().copyDefaults(true);
         saveConfig();
@@ -40,6 +40,7 @@ public final class Omniverse extends JavaPlugin {
         this.db = new LevelDatabase(this.dbOpts);
 
         this.eventListener = new OmniverseEvents(this);
+        getServer().getPluginManager().registerEvents(this.eventListener,this);
 
         this.lobby = new Lobby(this);
     }
