@@ -12,4 +12,11 @@ public class Universe {
     public List<UUID> extraOwners = new ArrayList<>();
 
     @Setter @Getter String parentMultiverse;
+
+    public boolean checkOwnership(UUID uuid){
+        if(uuid.compareTo(this.owner) == 0){
+            return true;
+        }
+        return this.extraOwners.contains(uuid);
+    }
 }

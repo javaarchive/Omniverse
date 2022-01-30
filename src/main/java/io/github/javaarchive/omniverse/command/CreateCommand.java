@@ -2,6 +2,8 @@ package io.github.javaarchive.omniverse.command;
 
 import io.github.javaarchive.omniverse.Omniverse;
 import io.github.javaarchive.omniverse.Utils;
+import io.github.javaarchive.omniverse.generation.DefaultUniverseSetup;
+import io.github.javaarchive.omniverse.procedures.UniverseWorld;
 import io.github.javaarchive.omniverse.structures.Multiverse;
 import io.github.javaarchive.omniverse.structures.Universe;
 import io.github.javaarchive.omniverse.utils.Ratelimit;
@@ -65,6 +67,10 @@ public class CreateCommand implements CommandExecutor {
 
                 this.omniverse.universes.set_json_from_obj(universeName, uv);
                 this.omniverse.multiverses.set_json_from_obj(multiverseName, mv);
+
+                player.sendRawMessage(ChatColor.YELLOW + "Generating Initial Files" + ChatColor.RESET);
+
+                UniverseWorld.generateNew(universeName,new String[0]);
 
                 player.sendRawMessage(ChatColor.GREEN + "Universe created! To tp to it /warp " + universeName);
 

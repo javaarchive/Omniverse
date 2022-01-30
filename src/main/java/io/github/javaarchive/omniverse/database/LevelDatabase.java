@@ -1,5 +1,6 @@
 package io.github.javaarchive.omniverse.database;
 
+import org.iq80.leveldb.CompressionType;
 import org.iq80.leveldb.DB;
 import org.iq80.leveldb.Options;
 
@@ -15,6 +16,7 @@ public class LevelDatabase extends Database{
         super(dbOptsToSet);
         this.levelOpts = new Options();
         this.levelOpts.createIfMissing(true);
+        this.levelOpts.compressionType(CompressionType.NONE); // TODO: allow customize
         try {
             this.levelDB = factory.open(this.dbOpts.getDbFile(), this.levelOpts);
         }catch(IOException iex){

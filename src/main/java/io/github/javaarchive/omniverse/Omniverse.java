@@ -2,6 +2,7 @@ package io.github.javaarchive.omniverse;
 
 import io.github.javaarchive.omniverse.command.CreateCommand;
 import io.github.javaarchive.omniverse.command.DieCommand;
+import io.github.javaarchive.omniverse.command.WarpCommand;
 import io.github.javaarchive.omniverse.database.Database;
 import io.github.javaarchive.omniverse.database.DatabaseOptions;
 import io.github.javaarchive.omniverse.database.LevelDatabase;
@@ -56,10 +57,13 @@ public final class Omniverse extends JavaPlugin implements CommandExecutor {
         this.lobby = new Lobby(this);
 
         // Register Commands
+
         CreateCommand create_cmd = new CreateCommand(this);
-        // getLogger().info("Got command " + this.getCommand("create"));
         this.getCommand("create").setExecutor(create_cmd);
-        // Bukkit.getPluginCommand("create").setExecutor(new CreateCommand(this));
+
+        WarpCommand warp_cmd = new WarpCommand(this);
+        this.getCommand("warp").setExecutor(warp_cmd);
+
         this.getCommand("debug_die").setExecutor(new DieCommand(this));
     }
 
