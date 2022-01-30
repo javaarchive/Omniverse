@@ -1,6 +1,7 @@
 package io.github.javaarchive.omniverse;
 
 import io.github.javaarchive.omniverse.command.CreateCommand;
+import io.github.javaarchive.omniverse.command.DieCommand;
 import io.github.javaarchive.omniverse.database.Database;
 import io.github.javaarchive.omniverse.database.DatabaseOptions;
 import io.github.javaarchive.omniverse.database.LevelDatabase;
@@ -55,10 +56,11 @@ public final class Omniverse extends JavaPlugin implements CommandExecutor {
         this.lobby = new Lobby(this);
 
         // Register Commands
-        CreateCommand create_cmd = new CreateCommand((this));
+        CreateCommand create_cmd = new CreateCommand(this);
         // getLogger().info("Got command " + this.getCommand("create"));
         this.getCommand("create").setExecutor(create_cmd);
         // Bukkit.getPluginCommand("create").setExecutor(new CreateCommand(this));
+        this.getCommand("debug_die").setExecutor(new DieCommand(this));
     }
 
     @Override
@@ -85,13 +87,16 @@ public final class Omniverse extends JavaPlugin implements CommandExecutor {
         getLogger().info("Plugin shutdown finished. ");
     }
 
+    public void _debugNullifyDatabase(){
+        this.db = null;
+    }
+
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         // return super.onCommand(sender, command, label, args);\
         if(sender instanceof Player){
             // is player?
             Player player = (Player) sender;
-
         }
         return false;
     }
@@ -106,6 +111,6 @@ public final class Omniverse extends JavaPlugin implements CommandExecutor {
     private void onCentralDatabaseInit(){
         this.universes = this.quickNamespacedDatabase("universe");
         this.multiverses = this.quickNamespacedDatabase("multiverse");
-        this.players = this.quickNamespacedDatabase("multiverse");
+        this.players = this.quickNamespacedDatabase("player");
     }
 }

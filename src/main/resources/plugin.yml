@@ -1,7 +1,7 @@
 name: Omniverse
 version: '${project.version}'
 main: io.github.javaarchive.omniverse.Omniverse
-prefix: [ Omniverse ]
+prefix: omniverse
 load: STARTUP
 description: Open-source hypixel housing like system that I build in my freetime
 
@@ -15,9 +15,15 @@ commands:
     description: Create a whole new multiverse (a set of worlds) or universe.
     aliases: [create_universe, create_multiverse, new_universe, new_mutliverse]
     permission: omniverse.universe.create
+    usage: create <multiverse_name> OR create <universe_name> <multiverse_name> you must create a multiverse first before you can make a universe part of it.
   lobby:
     description: Teleports you to the lobby. You leave the multiverse if needed.
-
+  warp:
+    description: Allows traveling between universes that the player has permission to enter via warp.
+    permission: omniverse.universe.warp
+  debug_die:
+    description: This command kills the plugin database systems pre-reload to avoid a bug with missing classes of bukkit reload. Accesible only via console.
+    permission-message: And you think you're very smart huh?
 permissions:
   omniverse.*:
     description: Unlimited access. Use for admins!
@@ -34,3 +40,6 @@ permissions:
   omniverse.universe.linking:
     description: Allows linking to other universes
     default: false
+  omniverse.universe.warp:
+    description: Allows warping to other universes when you have permission
+    default: true
