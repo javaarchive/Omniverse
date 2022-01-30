@@ -29,6 +29,7 @@ public class CreateCommand implements CommandExecutor {
             }
             if(args.length == 1){
                 // Create a multiverse
+                if(this.omniverse.get)
             }else if(args.length == 2){
 
             }else if(args.length == 0){

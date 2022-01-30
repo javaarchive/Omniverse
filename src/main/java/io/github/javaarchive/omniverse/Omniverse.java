@@ -4,6 +4,7 @@ import io.github.javaarchive.omniverse.command.CreateCommand;
 import io.github.javaarchive.omniverse.database.Database;
 import io.github.javaarchive.omniverse.database.DatabaseOptions;
 import io.github.javaarchive.omniverse.database.LevelDatabase;
+import io.github.javaarchive.omniverse.database.NamespacedDatabase;
 import lombok.Getter;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -19,9 +20,9 @@ import org.bukkit.Bukkit;
 public final class Omniverse extends JavaPlugin implements CommandExecutor {
     OmniverseEvents eventListener;
     Database db;
-    Database universes;
-    Database multiverses;
-    Database players;
+    public Database universes;
+    public Database multiverses;
+    public Database players;
 
     DatabaseOptions dbOpts;
 
@@ -94,7 +95,16 @@ public final class Omniverse extends JavaPlugin implements CommandExecutor {
         return false;
     }
 
-    private void onCentralDatabaseInit(){
+    private NamespacedDatabase quickNamespacedDatabase(String ns){
+        DatabaseOptions dbOpts = new DatabaseOptions();
+        dbOpts.setUpstreamDB(this.db);
+        dbOpts.setNamespace(ns);
+        return (new NamespacedDatabase(dbOpts));
+    }
 
+    private void onCentralDatabaseInit(){
+        this.universes = this.quickNamespacedDatabase("universe");
+        this.multiverses = this.quickNamespacedDatabase("multiverse");
+        this.players = this.quickNamespacedDatabase("multiverse");
     }
 }
