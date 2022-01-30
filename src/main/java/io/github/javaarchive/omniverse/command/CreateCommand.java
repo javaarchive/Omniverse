@@ -15,7 +15,7 @@ public class CreateCommand implements CommandExecutor {
 
     public CreateCommand(Omniverse omniverse) {
         this.omniverse = omniverse;
-        this.rl = new Ratelimit(1 * 1000L);
+        this.rl = new Ratelimit(2 * 1000L);
     }
 
     @Override

@@ -22,7 +22,7 @@ public class Ratelimit {
     }
 
     public boolean check(UUID u){
-        if(userLast.containsKey(u) && (userLast.get(u) - System.currentTimeMillis()) < this.time){
+        if(userLast.containsKey(u) && (System.currentTimeMillis() - userLast.get(u)) < this.time){
             return false;
         }
         this.userLast.put(u, System.currentTimeMillis());
