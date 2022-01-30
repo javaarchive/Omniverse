@@ -42,11 +42,7 @@
                             <createDependencyReducedPom>false</createDependencyReducedPom>
                             <minimizeJar>false</minimizeJar>
                             <createSourcesJar>true</createSourcesJar>
-                            <artifactSet>
-                                <includes>
-                                    <include>org.iq80.leveldb</include>
-                                </includes>
-                            </artifactSet>
+
                         </configuration>
                     </execution>
                 </executions>
