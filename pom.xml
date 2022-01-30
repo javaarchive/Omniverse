@@ -41,20 +41,46 @@
                         <configuration>
                             <createDependencyReducedPom>false</createDependencyReducedPom>
                             <minimizeJar>false</minimizeJar>
+                            <createSourcesJar>true</createSourcesJar>
                             <filters>
                                 <filter>
-                                    <artifact>leveldb</artifact>
+                                    <artifact>org.iq80.leveldb:leveldb</artifact>
                                     <includes>
                                         <include>**</include>
                                     </includes>
                                 </filter>
                                 <filter>
-                                    <artifact>leveldb-api</artifact>
+                                    <artifact>org.iq80.leveldb:leveldb-api</artifact>
+                                    <includes>
+                                        <include>**</include>
+                                    </includes>
+                                </filter>
+                                <filter>
+                                    <artifact>org.iq80.leveldb</artifact>
+                                    <includes>
+                                        <include>**</include>
+                                    </includes>
+                                </filter>
+                                <filter>
+                                    <artifact>leveldb:leveldb</artifact>
+                                    <includes>
+                                        <include>**</include>
+                                    </includes>
+                                </filter>
+                                <filter>
+                                    <artifact>leveldb:leveldb-api</artifact>
                                     <includes>
                                         <include>**</include>
                                     </includes>
                                 </filter>
                             </filters>
+                            <artifactSet>
+                                <includes>
+                                    <include>org.iq80.leveldb</include>
+                                    <include>org.iq80.leveldb:leveldb</include>
+                                    <include>org.iq80.leveldb:leveldb-api</include>
+                                </includes>
+                            </artifactSet>
                         </configuration>
                     </execution>
                 </executions>
