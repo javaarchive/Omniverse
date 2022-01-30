@@ -52,7 +52,7 @@
                                 <filter>
                                     <artifact>org.iq80.leveldb:leveldb-api</artifact>
                                     <includes>
-                                        <include>**</include>
+                                        <include>**/**</include>
                                     </includes>
                                 </filter>
                                 <filter>
@@ -70,8 +70,14 @@
                                 <filter>
                                     <artifact>leveldb:leveldb-api</artifact>
                                     <includes>
-                                        <include>**</include>
+                                        <include>**/**</include>
                                     </includes>
+                                </filter>
+                                <filter>
+                                <artifact>leveldb-api:leveldb-api</artifact>
+                                <includes>
+                                    <include>**/**</include>
+                                </includes>
                                 </filter>
                             </filters>
                             <artifactSet>
