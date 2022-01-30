@@ -36,7 +36,15 @@ public abstract class Database {
         return this.gson.fromJson(this.get(key), JsonObject.class);
     }
 
+    public <T> Object get_obj(String key, Class<T> cls){
+        return this.gson.fromJson(this.get(key), cls);
+    }
+
     public void set_json(String key, JsonObject value){
+        this.set(key, this.gson.toJson(value));
+    }
+
+    public void set_json_from_obj(String key, Object value){
         this.set(key, this.gson.toJson(value));
     }
 
@@ -72,5 +80,9 @@ public abstract class Database {
         this.lock();
         trans.run(this);
         this.unlock();
+    }
+
+    public void cleanup(){
+        // nothing for now
     }
 }

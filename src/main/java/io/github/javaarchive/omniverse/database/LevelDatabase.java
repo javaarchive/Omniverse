@@ -38,4 +38,15 @@ public class LevelDatabase extends Database{
     }
 
     // default contains implementation should be ok
+
+
+    @Override
+    public void cleanup() {
+        super.cleanup();
+        try {
+            this.levelDB.close();
+        }catch(IOException ex){
+            ex.printStackTrace();
+        }
+    }
 }

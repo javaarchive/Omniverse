@@ -40,6 +40,21 @@
                         </goals>
                         <configuration>
                             <createDependencyReducedPom>false</createDependencyReducedPom>
+                            <minimizeJar>false</minimizeJar>
+                            <filters>
+                                <filter>
+                                    <artifact>leveldb</artifact>
+                                    <includes>
+                                        <include>**</include>
+                                    </includes>
+                                </filter>
+                                <filter>
+                                    <artifact>leveldb-api</artifact>
+                                    <includes>
+                                        <include>**</include>
+                                    </includes>
+                                </filter>
+                            </filters>
                         </configuration>
                     </execution>
                 </executions>
@@ -77,6 +92,7 @@
             <groupId>org.iq80.leveldb</groupId>
             <artifactId>leveldb-api</artifactId>
             <version>0.12</version>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.iq80.leveldb</groupId>

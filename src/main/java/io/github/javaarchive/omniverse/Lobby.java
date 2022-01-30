@@ -22,6 +22,14 @@ public class Lobby {
         }
     }
 
+    public void enableSafeSettings(){
+        this.getLobbyWorld().setAnimalSpawnLimit(0);
+        this.getLobbyWorld().setMonsterSpawnLimit(0);
+        this.getLobbyWorld().setKeepSpawnInMemory(true);
+        this.getLobbyWorld().setAutoSave(false);
+        this.getLobbyWorld().setPVP(false);
+    }
+
     public void autocreateWorld(){
         if(Bukkit.getWorld("lobby") == null){
             this.plugin.getLogger().log(Level.INFO,"Hold tight, we're creating your lobby world");
