@@ -82,6 +82,7 @@ public final class Omniverse extends JavaPlugin implements CommandExecutor {
             getLogger().warning("DB Failed to cleanup properly");
             ex.printStackTrace();
         }
+        getLogger().info("Plugin shutdown finished. ");
     }
 
     @Override

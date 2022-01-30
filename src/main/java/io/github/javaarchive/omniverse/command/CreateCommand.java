@@ -2,6 +2,8 @@ package io.github.javaarchive.omniverse.command;
 
 import io.github.javaarchive.omniverse.Omniverse;
 import io.github.javaarchive.omniverse.Utils;
+import io.github.javaarchive.omniverse.structures.Multiverse;
+import io.github.javaarchive.omniverse.structures.Universe;
 import io.github.javaarchive.omniverse.utils.Ratelimit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -29,14 +31,51 @@ public class CreateCommand implements CommandExecutor {
             }
             if(args.length == 1){
                 // Create a multiverse
-                if(this.omniverse.get)
+                String name = args[0];
+                if(!this.omniverse.multiverses.contains(name)){
+                    // Create!
+                    Multiverse mv = new Multiverse();
+                    mv.setOwner(player.getUniqueId());
+                    this.omniverse.multiverses.set_json_from_obj(name, mv);
+                    player.sendRawMessage(ChatColor.GREEN + "Congratulations, you just created your first multiverse. Next, add universe to it with /create_universe <universe_name> " + name + ChatColor.RESET);
+                }else{
+                    player.sendRawMessage(ChatColor.RED + "A multiverse with that name already exists" + ChatColor.RESET);
+                }
+                return true;
             }else if(args.length == 2){
+                String universeName = args[0];
+                String multiverseName = args[1];
+                if(this.omniverse.universes.contains(universeName)){
+                    player.sendRawMessage(ChatColor.RED + "Universe with name already exists. Try again!" + ChatColor.RESET);
+                    return true;
+                }else if(!this.omniverse.multiverses.contains(multiverseName)){
+                    player.sendRawMessage(ChatColor.RED + "Multiverse not found!" + ChatColor.RESET);
+                    return true;
+                }
+                Multiverse mv = this.omniverse.multiverses.get_obj(multiverseName, Multiverse.class);
+                if(!mv.checkOwnership(player.getUniqueId())){
+                    player.sendRawMessage(ChatColor.RED + "No permission to create a new universe attached to this multiverse!" + ChatColor.RESET);
+                    return true;
+                }
+                Universe uv = new Universe();
+                uv.setOwner(player.getUniqueId());
+                uv.setParentMultiverse(multiverseName);
 
+                mv.universes.add(universeName);
+
+                this.omniverse.universes.set_json_from_obj(universeName, uv);
+                this.omniverse.multiverses.set_json_from_obj(multiverseName, mv);
+
+                player.sendRawMessage(ChatColor.GREEN + "Universe created! To tp to it /warp " + universeName);
+
+                return true;
             }else if(args.length == 0){
-                player.sendRawMessage(ChatColor.RED + "No argument given. Usage [multiverse name] or [universe name] [multiverse name]" + ChatColor.RESET);
+                // player.sendRawMessage(ChatColor.RED + "No argument given. Usage [multiverse name] or [universe name] [multiverse name]" + ChatColor.RESET);
+                return false;
             }
         }else{
             omniverse.getLogger().warning("Create command may not be executed from the console (player not found). ");
+            return true;
         }
         return false;
     }

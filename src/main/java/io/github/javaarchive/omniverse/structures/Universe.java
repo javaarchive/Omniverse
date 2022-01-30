@@ -11,5 +11,5 @@ public class Universe {
     @Getter @Setter UUID owner;
     public List<UUID> extraOwners = new ArrayList<>();
 
-
+    @Setter @Getter String parentMultiverse;
 }

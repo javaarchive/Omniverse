@@ -36,7 +36,7 @@ public abstract class Database {
         return this.gson.fromJson(this.get(key), JsonObject.class);
     }
 
-    public <T> Object get_obj(String key, Class<T> cls){
+    public <T> T get_obj(String key, Class<T> cls){
         return this.gson.fromJson(this.get(key), cls);
     }
 
