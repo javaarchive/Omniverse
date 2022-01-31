@@ -1,6 +1,7 @@
 package io.github.javaarchive.omniverse;
 
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -63,6 +64,9 @@ public class OmniverseEvents implements Listener {
     public void onPortal(PlayerPortalEvent event){
         if(!event.getFrom().getWorld().getName().startsWith("world")){
             event.setCancelled(true);
+            if(event.getPlayer() != null){
+                event.getPlayer().sendRawMessage(ChatColor.DARK_RED + "Portals not implemented " + ChatColor.RESET);
+            }
         }
     }
 }
