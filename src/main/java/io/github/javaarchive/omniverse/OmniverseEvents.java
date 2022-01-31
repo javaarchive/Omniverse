@@ -4,9 +4,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.player.PlayerJoinEvent;
-import org.bukkit.event.player.PlayerLoginEvent;
-import org.bukkit.event.player.PlayerQuitEvent;
+import org.bukkit.event.player.*;
 import org.bukkit.event.world.WorldLoadEvent;
 
 import java.util.HashMap;
@@ -58,6 +56,13 @@ public class OmniverseEvents implements Listener {
     public void onWorldLoad(WorldLoadEvent event){
         if(event.getWorld().getName().equals("world")){
             // this.plugin.getLobby().autocreateWorld();
+        }
+    }
+
+    @EventHandler
+    public void onPortal(PlayerPortalEvent event){
+        if(!event.getFrom().getWorld().getName().startsWith("world")){
+            event.setCancelled(true);
         }
     }
 }
