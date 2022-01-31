@@ -1,6 +1,7 @@
 package io.github.javaarchive.omniverse;
 
 import org.bukkit.ChatColor;
+import org.bukkit.attribute.Attribute;
 import org.bukkit.entity.Player;
 
 public class Utils {
@@ -15,6 +16,7 @@ public class Utils {
         player.resetPlayerTime();
         player.resetPlayerWeather();
         player.setSneaking(false);
+        player.setHealth(player.getAttribute(Attribute.GENERIC_MAX_HEALTH).getDefaultValue());
     }
 
     public static void ratelimitReached(Player player){

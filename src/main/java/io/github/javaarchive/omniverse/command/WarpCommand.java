@@ -6,10 +6,7 @@ import io.github.javaarchive.omniverse.procedures.UniverseWorld;
 import io.github.javaarchive.omniverse.structures.Multiverse;
 import io.github.javaarchive.omniverse.structures.Universe;
 import io.github.javaarchive.omniverse.utils.Ratelimit;
-import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
-import org.bukkit.Location;
-import org.bukkit.World;
+import org.bukkit.*;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -39,11 +36,21 @@ public class WarpCommand implements CommandExecutor {
 
                 if(this.omniverse.universes.contains(name)){
                     Universe uv = this.omniverse.universes.get_obj(name, Universe.class);
-                    if(uv.checkOwnership(player.getUniqueId())){
-                        World w = Bukkit.getWorld(name);
+                    Multiverse mv = this.omniverse.multiverses.get_obj(uv.getParentMultiverse(), Multiverse.class);
+                    if(uv.checkOwnership(player.getUniqueId()) || mv.canJoin(player.getUniqueId())){
+                        World w = omniverse.getWorld(name);
+                        if(w == null){
+                            player.sendRawMessage(ChatColor.RED + "ERROR: World System failed to locate associated world!" + ChatColor.RESET);
+                            return true;
+                        }
                         Utils.resetPlayer(player);
+                        System.out.println("TPing to " +  w.getSpawnLocation());
                         player.teleport( w.getSpawnLocation()); // temporarily unsettable
-
+                        player.setGameMode(GameMode.CREATIVE);
+                        if(this.omniverse.config.getConfigurationSection("warp").getBoolean("sound")){
+                            player.playSound(player.getLocation(),Sound.BLOCK_END_PORTAL_SPAWN,1,1);
+                        }
+                        player.sendRawMessage(ChatColor.GREEN + "Warped to the Universe " + name + "! " + ChatColor.RESET);
                     }else{
                         player.sendRawMessage(ChatColor.RED + "Not permitted to join!" + ChatColor.RESET);
                     }

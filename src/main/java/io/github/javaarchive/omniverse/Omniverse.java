@@ -8,6 +8,8 @@ import io.github.javaarchive.omniverse.database.DatabaseOptions;
 import io.github.javaarchive.omniverse.database.LevelDatabase;
 import io.github.javaarchive.omniverse.database.NamespacedDatabase;
 import lombok.Getter;
+import org.bukkit.World;
+import org.bukkit.WorldCreator;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -110,6 +112,25 @@ public final class Omniverse extends JavaPlugin implements CommandExecutor {
         dbOpts.setUpstreamDB(this.db);
         dbOpts.setNamespace(ns);
         return (new NamespacedDatabase(dbOpts));
+    }
+
+    public World getWorld(String name){
+        World world = this.getServer().getWorld(name);
+        if(world == null){
+            try{
+                if(!(new File(name).isDirectory())){
+                    return null;
+                }
+            }catch(Exception ex){
+                return null;
+            }
+            world = this.getServer().createWorld(new WorldCreator(name));
+            world.setKeepSpawnInMemory(false);
+            return world;
+        }else{
+            world.setKeepSpawnInMemory(false);
+            return world;
+        }
     }
 
     private void onCentralDatabaseInit(){

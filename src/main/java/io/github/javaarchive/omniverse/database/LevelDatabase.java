@@ -16,6 +16,7 @@ public class LevelDatabase extends Database{
         super(dbOptsToSet);
         this.levelOpts = new Options();
         this.levelOpts.createIfMissing(true);
+        this.levelOpts.cacheSize(100); // TODO: allow customize
         this.levelOpts.compressionType(CompressionType.NONE); // TODO: allow customize
         try {
             this.levelDB = factory.open(this.dbOpts.getDbFile(), this.levelOpts);

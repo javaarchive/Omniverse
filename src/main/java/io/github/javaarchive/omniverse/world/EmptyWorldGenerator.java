@@ -18,7 +18,7 @@ public class EmptyWorldGenerator extends ChunkGenerator {
         return true;
     }
 
-    public byte[] generate(World world, Random rand, int chunkx, int chunkz) {
+    public byte[] generateBytes(World world, Random rand, int chunkx, int chunkz) {
         return new byte[32768];
     }
 

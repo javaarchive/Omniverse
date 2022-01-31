@@ -15,14 +15,23 @@ public class Multiverse {
     public List<String> universes = new ArrayList<>();
 
     // Setting controls whether helpful messages will be shown on join
-    boolean tutorialMode = true;
-    // Only
-    boolean useWhitelist = true;
+    @Getter @Setter boolean tutorialMode = true;
+    // Whitelist declares only people explictly allowed or owners are allowed in
+    @Getter @Setter boolean useWhitelist = true;
+    @Getter List<UUID> whitelisted = new ArrayList<>();
 
     public boolean checkOwnership(UUID uuid){
         if(uuid.compareTo(this.owner) == 0){
             return true;
         }
         return this.extraOwners.contains(uuid);
+    }
+
+    public boolean canJoin(UUID uuid){
+        if(!isUseWhitelist()){
+            return true;
+        }else{
+            return checkOwnership(uuid) || whitelisted.contains(uuid);
+        }
     }
 }
