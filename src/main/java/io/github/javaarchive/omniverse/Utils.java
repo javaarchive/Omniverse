@@ -22,4 +22,6 @@ public class Utils {
     public static void ratelimitReached(Player player){
         player.sendRawMessage(ChatColor.RED + "You are rerunning this command too fast. Try again later." + ChatColor.RESET);
     }
+
+
 }
