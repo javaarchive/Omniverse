@@ -3,7 +3,6 @@ package io.github.javaarchive.omniverse.structures;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.sql.Array;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;

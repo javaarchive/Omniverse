@@ -6,5 +6,16 @@ import java.util.Map;
 public class PermissionSet {
     //  Role        Permission
     Map<String, Map<String,  Permission>> pData;
-    List<String> allRoles;
+
+    List<String> roleList;
+
+    Map<String, Integer> role;
+
+    public PermissionSet hydrate(){
+        return this;
+    }
+
+    public void appendRole(String str){
+        
+    }
 }
