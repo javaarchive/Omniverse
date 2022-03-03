@@ -54,14 +54,14 @@ public class CreateCommand implements CommandExecutor {
                     player.sendRawMessage(ChatColor.RED + "Multiverse not found!" + ChatColor.RESET);
                     return true;
                 }
-                Multiverse mv = this.omniverse.multiverses.get_obj(multiverseName, Multiverse.class);
+                Multiverse mv = this.omniverse.getMultiverse(multiverseName);
                 if(!mv.checkOwnership(player.getUniqueId())){
                     player.sendRawMessage(ChatColor.RED + "No permission to create a new universe attached to this multiverse!" + ChatColor.RESET);
                     return true;
                 }
                 Universe uv = new Universe();
                 uv.setOwner(player.getUniqueId());
-                uv.setParentMultiverse(multiverseName);
+                uv.setParentMultiverseName(multiverseName);
 
                 mv.universes.add(universeName);
 

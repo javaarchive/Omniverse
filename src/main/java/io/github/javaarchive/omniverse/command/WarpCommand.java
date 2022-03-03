@@ -35,8 +35,8 @@ public class WarpCommand implements CommandExecutor {
                 String name = args[0];
 
                 if(this.omniverse.universes.contains(name)){
-                    Universe uv = this.omniverse.universes.get_obj(name, Universe.class);
-                    Multiverse mv = this.omniverse.multiverses.get_obj(uv.getParentMultiverse(), Multiverse.class);
+                    Universe uv = this.omniverse.getUniverse(name);
+                    Multiverse mv = this.omniverse.multiverseOf(uv);
                     if(uv.checkOwnership(player.getUniqueId()) || mv.canJoin(player.getUniqueId())){
                         World w = omniverse.getWorld(name);
                         if(w == null){

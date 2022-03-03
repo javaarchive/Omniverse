@@ -7,6 +7,8 @@ import io.github.javaarchive.omniverse.database.Database;
 import io.github.javaarchive.omniverse.database.DatabaseOptions;
 import io.github.javaarchive.omniverse.database.LevelDatabase;
 import io.github.javaarchive.omniverse.database.NamespacedDatabase;
+import io.github.javaarchive.omniverse.structures.Multiverse;
+import io.github.javaarchive.omniverse.structures.Universe;
 import lombok.Getter;
 import org.bukkit.World;
 import org.bukkit.WorldCreator;
@@ -27,6 +29,7 @@ public final class Omniverse extends JavaPlugin implements CommandExecutor {
     public Database universes;
     public Database multiverses;
     public Database players;
+    public Database multiverseMembers;
 
     DatabaseOptions dbOpts;
 
@@ -137,5 +140,26 @@ public final class Omniverse extends JavaPlugin implements CommandExecutor {
         this.universes = this.quickNamespacedDatabase("universe");
         this.multiverses = this.quickNamespacedDatabase("multiverse");
         this.players = this.quickNamespacedDatabase("player");
+        this.multiverseMembers = this.quickNamespacedDatabase("multiverse_playerdata");
+    }
+
+    public Universe getUniverse(String name){
+        return this.universes.get_obj(name, Universe.class);
+    }
+
+    public Multiverse getMultiverse(String name){
+        return this.multiverses.get_obj(name, Multiverse.class);
+    }
+
+    public Multiverse multiverseOf(Universe univ){
+        return this.getMultiverse(univ.getParentMultiverseName());
+    }
+
+    public boolean hasMultiverse(String name){
+        return this.multiverses.contains(name);
+    }
+
+    public boolean hasUniverse(String name){
+        return this.universes.contains(name);
     }
 }
