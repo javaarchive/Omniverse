@@ -24,6 +24,7 @@ public class PermissionSet {
         return pData.get(role).get(perm);
     }
 
+    // Priority roles first
     private List<String> sortRoles(List<String> roles){
         Map<String, Integer> roleInv = roleInverseIndex;
         roles.sort(new Comparator<String>() {
@@ -36,6 +37,18 @@ public class PermissionSet {
         return roles;
     }
 
+    public Permission getPermWithRoles(List<String> roles, String perm){
+        roles = this.sortRoles(roles);
+        
+        for(String role: roles){
+            if(this.pData.get(role).containsKey(perm)){
+                return this.pData.get(role).get(perm);
+            }
+        }
+
+        return Permission.DENY;
+    }
+
     public PermissionSet hydrate(){
         this.rebuildInvIndex();
         return this;
@@ -44,6 +57,16 @@ public class PermissionSet {
     public void appendRole(String str){
         this.roleInverseIndex.put(str,this.roleList.size());
         this.roleList.add(str);
+    }
+
+    public void removeRole(String role){
+        this.roleList.remove(role);
+        this.rebuildInvIndex(); // TODO: Optimize
+    }
+
+    public void insertRole(String role, int pos){
+        this.roleList.add(pos, role);
+        this.rebuildInvIndex(); // TODO: Optimize
     }
 
     public void rebuildInvIndex(){
