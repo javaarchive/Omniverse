@@ -33,4 +33,6 @@ public class Multiverse {
             return checkOwnership(uuid) || whitelisted.contains(uuid);
         }
     }
+
+    public Permission perms;
 }

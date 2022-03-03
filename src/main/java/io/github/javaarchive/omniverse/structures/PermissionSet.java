@@ -41,7 +41,7 @@ public class PermissionSet {
         roles = this.sortRoles(roles);
         
         for(String role: roles){
-            if(this.pData.get(role).containsKey(perm)){
+            if(this.pData.get(role).containsKey(perm) && this.pData.get(role).get(perm) != Permission.NETURAL){
                 return this.pData.get(role).get(perm);
             }
         }
