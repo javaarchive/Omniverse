@@ -32,9 +32,9 @@ public class CreateCommand implements CommandExecutor {
                 return true;
             }
             if(args.length == 1){
-                // Create a multiverse
+                // Create a new multiverse
                 String name = args[0];
-                if(!this.omniverse.multiverses.contains(name)){
+                if(!this.omniverse.hasMultiverse(name)){
                     // Create!
                     Multiverse mv = new Multiverse();
                     mv.setOwner(player.getUniqueId());
@@ -45,12 +45,13 @@ public class CreateCommand implements CommandExecutor {
                 }
                 return true;
             }else if(args.length == 2){
+                // Create universe part of multiverse
                 String universeName = args[0];
                 String multiverseName = args[1];
                 if(this.omniverse.universes.contains(universeName)){
                     player.sendRawMessage(ChatColor.RED + "Universe with name already exists. Try again!" + ChatColor.RESET);
                     return true;
-                }else if(!this.omniverse.multiverses.contains(multiverseName)){
+                }else if(!this.omniverse.hasMultiverse(multiverseName)){
                     player.sendRawMessage(ChatColor.RED + "Multiverse not found!" + ChatColor.RESET);
                     return true;
                 }
@@ -59,6 +60,7 @@ public class CreateCommand implements CommandExecutor {
                     player.sendRawMessage(ChatColor.RED + "No permission to create a new universe attached to this multiverse!" + ChatColor.RESET);
                     return true;
                 }
+                
                 Universe uv = new Universe();
                 uv.setOwner(player.getUniqueId());
                 uv.setParentMultiverseName(multiverseName);
