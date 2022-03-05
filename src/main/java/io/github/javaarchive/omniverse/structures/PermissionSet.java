@@ -50,7 +50,7 @@ public class PermissionSet {
             }
         }
 
-        return Permission.DENY;
+        return Permission.NETURAL;
     }
 
     public PermissionSet hydrate(){

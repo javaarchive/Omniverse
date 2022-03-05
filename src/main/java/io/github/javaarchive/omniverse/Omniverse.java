@@ -8,6 +8,7 @@ import io.github.javaarchive.omniverse.database.DatabaseOptions;
 import io.github.javaarchive.omniverse.database.LevelDatabase;
 import io.github.javaarchive.omniverse.database.NamespacedDatabase;
 import io.github.javaarchive.omniverse.structures.Multiverse;
+import io.github.javaarchive.omniverse.structures.MultiverseUser;
 import io.github.javaarchive.omniverse.structures.Universe;
 import lombok.Getter;
 import org.bukkit.World;
@@ -17,11 +18,11 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
-import org.iq80.leveldb.*;
-import static org.iq80.leveldb.impl.Iq80DBFactory.*;
+
 import java.io.*;
+import java.util.UUID;
+
 import org.bukkit.plugin.java.JavaPlugin;
-import org.bukkit.Bukkit;
 
 public final class Omniverse extends JavaPlugin implements CommandExecutor {
     OmniverseEvents eventListener;
@@ -161,5 +162,19 @@ public final class Omniverse extends JavaPlugin implements CommandExecutor {
 
     public boolean hasUniverse(String name){
         return this.universes.contains(name);
+    }
+
+    public boolean hasMultiverseUserProfile(String multiverseName, UUID puuid){
+        return this.multiverseMembers.contains(multiverseName + ";" + puuid.toString());
+    }
+
+    public MultiverseUser getMultiverseUserProfile(String multiverseName, UUID puuid){
+        if(!this.hasMultiverseUserProfile(multiverseName,puuid)){
+            // Create if needed
+            MultiverseUser mu = new MultiverseUser();
+            MultiverseUser.initializeUser(mu);
+            this.multiverseMembers.set_json_from_obj(multiverseName + ";" + puuid.toString(), mu);
+        }
+        return this.multiverseMembers.get_obj(multiverseName + ";" + puuid.toString(), MultiverseUser.class);
     }
 }

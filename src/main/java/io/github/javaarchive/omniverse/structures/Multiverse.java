@@ -34,5 +34,5 @@ public class Multiverse {
         }
     }
 
-    public Permission perms;
+    public PermissionSet perms;
 }
