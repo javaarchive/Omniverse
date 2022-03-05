@@ -3,6 +3,7 @@ package io.github.javaarchive.omniverse.contexting;
 import io.github.javaarchive.omniverse.structures.MultiverseUser;
 import io.github.javaarchive.omniverse.structures.Permission;
 import lombok.Getter;
+import lombok.Setter;
 import org.bukkit.entity.Player;
 
 import io.github.javaarchive.omniverse.Omniverse;
@@ -23,7 +24,9 @@ public class PlayerContext {
 
     private @Getter String uvName;
     
-    public boolean isOnline = false;
+    @Getter @Setter private boolean online = false;
+
+    @Getter @Setter private boolean multiversedWorld = false;
 
     public PlayerContext(Player player){
         this(player, Omniverse.getInstance());
@@ -32,13 +35,16 @@ public class PlayerContext {
     public PlayerContext(Player player, Omniverse omniverse){
         this.player = player;
         this.ov = omniverse;
-        this.isOnline = this.player.isOnline();
-        if(this.isOnline){
+        this.setMultiversedWorld(this.player.isOnline());
+        if(this.isOnline()){
             String worldName = this.player.getWorld().getName();
             if(this.ov.hasUniverse(worldName)){
+                this.setMultiversedWorld(true);
                 this.uv = this.ov.getUniverse(worldName);
                 this.uvName = worldName;
                 this.mv = this.ov.multiverseOf(this.uv);
+            }else{
+                this.setMultiversedWorld(false);
             }
         }
     }
@@ -48,7 +54,13 @@ public class PlayerContext {
     }
 
     public Permission checkPerm(String name){
+
+        if(!this.isMultiversedWorld()){
+            return Permission.NETURAL;
+        }
+
         List<String> roles = this.getMemberData().getRoles();
+
         Permission masterPerms = this.mv.perms.getPermWithRoles(roles,name);
         Permission univPerms = this.mv.perms.getPermWithRoles(roles,this.uvName + "." + name);
 
