@@ -1,8 +1,6 @@
 package io.github.javaarchive.omniverse.structures;
 
-import java.util.Comparator;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import lombok.Getter;
 
@@ -13,6 +11,12 @@ public class PermissionSet {
     @Getter private List<String> roleList;
 
     private transient Map<String, Integer> roleInverseIndex; // Maps role names to position
+
+    public PermissionSet(){
+        this.roleInverseIndex = new HashMap<>();
+        this.roleList = new ArrayList<>();
+        this.pData = new HashMap<>();
+    }
 
     public Permission setPerm(String role, String perm, Permission value){
         Permission oldValue = pData.get(role).get(perm);
