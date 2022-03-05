@@ -8,12 +8,12 @@ import io.github.javaarchive.omniverse.structures.Multiverse;
 import io.github.javaarchive.omniverse.structures.Universe;
 
 public class PlayerContext {
-    Omniverse ov;
+    public Omniverse ov;
     
-    Player player;
+    public Player player;
 
-    Multiverse mv;
-    Universe uv;
+    public Multiverse mv;
+    public Universe uv;
     
     public boolean isOnline = false;
 
@@ -22,8 +22,10 @@ public class PlayerContext {
         this.ov = omniverse;
         this.isOnline = this.player.isOnline();
         if(this.isOnline){
-            if(this.m){
-
+            String worldName = this.player.getWorld().getName();
+            if(this.ov.hasUniverse(worldName)){
+                this.uv = this.ov.getUniverse(worldName);
+                this.mv = this.ov.multiverseOf(this.uv);
             }
         }
     }
