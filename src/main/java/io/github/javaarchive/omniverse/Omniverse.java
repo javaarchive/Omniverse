@@ -11,6 +11,7 @@ import io.github.javaarchive.omniverse.structures.Multiverse;
 import io.github.javaarchive.omniverse.structures.MultiverseUser;
 import io.github.javaarchive.omniverse.structures.Universe;
 import lombok.Getter;
+import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.WorldCreator;
 import org.bukkit.command.Command;
@@ -20,6 +21,7 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 
 import java.io.*;
+import java.util.Arrays;
 import java.util.UUID;
 
 import org.bukkit.plugin.java.JavaPlugin;
@@ -176,5 +178,9 @@ public final class Omniverse extends JavaPlugin implements CommandExecutor {
             this.multiverseMembers.set_json_from_obj(multiverseName + ";" + puuid.toString(), mu);
         }
         return this.multiverseMembers.get_obj(multiverseName + ";" + puuid.toString(), MultiverseUser.class);
+    }
+
+    public static Omniverse getInstance(){
+        return (Omniverse) Arrays.stream(Bukkit.getPluginManager().getPlugins()).filter(plugin -> plugin instanceof Omniverse).findFirst().get();
     }
 }

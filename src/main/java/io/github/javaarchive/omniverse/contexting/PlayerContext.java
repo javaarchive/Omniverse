@@ -25,6 +25,10 @@ public class PlayerContext {
     
     public boolean isOnline = false;
 
+    public PlayerContext(Player player){
+        this(player, Omniverse.getInstance());
+    }
+
     public PlayerContext(Player player, Omniverse omniverse){
         this.player = player;
         this.ov = omniverse;
