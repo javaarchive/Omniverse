@@ -21,7 +21,7 @@ public class DieCommand implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if(sender instanceof Player){
-            omniverse.getLogger().warning("Die command may not be executed from the console (player found). ");
+            omniverse.getLogger().warning("Die command may be executed from the console (player found). ");
         }else{
             omniverse.onDisable();
             omniverse._debugNullifyDatabase();

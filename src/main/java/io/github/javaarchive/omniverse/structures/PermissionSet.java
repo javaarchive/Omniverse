@@ -73,6 +73,10 @@ public class PermissionSet {
         this.rebuildInvIndex(); // TODO: Optimize
     }
 
+    public boolean hasRole(String role){
+        return this.roleList.contains(role);
+    }
+
     public void rebuildInvIndex(){
         // Rebuild string to index (apply priority)
         this.roleInverseIndex.clear();

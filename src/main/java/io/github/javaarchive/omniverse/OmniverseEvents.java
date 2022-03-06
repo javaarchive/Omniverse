@@ -75,7 +75,6 @@ public class OmniverseEvents implements Listener {
     @EventHandler
     public void onDrop(PlayerDropItemEvent event){
         PlayerContext pctx = new PlayerContext(event.getPlayer());
-        System.out.println(pctx);
         if(!pctx.isMultiversedWorld()){
             return;
         }

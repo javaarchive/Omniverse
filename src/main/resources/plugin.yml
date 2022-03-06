@@ -24,6 +24,12 @@ commands:
   debug_die:
     description: This command kills the plugin database systems pre-reload to avoid a bug with missing classes of bukkit reload. Accesible only via console.
     permission-message: And you think you're very smart huh?
+  add_role:
+    description: Add a role
+    permission: omniverse.multiverse.manage_roles
+  set_perm:
+    description: Set permission
+    permission: omniverse.multiverse.manage_perms
 permissions:
   omniverse.*:
     description: Unlimited access. Use for admins!
@@ -42,4 +48,10 @@ permissions:
     default: false
   omniverse.universe.warp:
     description: Allows warping to other universes when you have permission
+    default: true
+  omniverse.multiverse.manage_roles:
+    description: Allows managing roles
+    default: true
+  omniverse.multiverse.manage_perms:
+    description: Allows managing permissions
     default: true

@@ -9,4 +9,13 @@ public enum Permission {
     ALLOW,
     @SerializedName("none")
     NETURAL;
+
+    static public Permission fromString(String str){
+        if(str.equals("allow")){
+            return Permission.ALLOW;
+        }else if(str.equals("deny")){
+            return Permission.DENY;
+        }
+        return Permission.NETURAL;
+    }
 }

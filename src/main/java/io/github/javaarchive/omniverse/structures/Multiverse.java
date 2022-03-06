@@ -9,7 +9,7 @@ import java.util.UUID;
 
 public class Multiverse {
     @Getter @Setter UUID owner;
-    List<UUID> extraOwners = new ArrayList<>();
+    @Getter @Setter List<UUID> extraOwners = new ArrayList<>();
 
     public List<String> universes = new ArrayList<>();
 

@@ -1,8 +1,6 @@
 package io.github.javaarchive.omniverse;
 
-import io.github.javaarchive.omniverse.command.CreateCommand;
-import io.github.javaarchive.omniverse.command.DieCommand;
-import io.github.javaarchive.omniverse.command.WarpCommand;
+import io.github.javaarchive.omniverse.command.*;
 import io.github.javaarchive.omniverse.database.Database;
 import io.github.javaarchive.omniverse.database.DatabaseOptions;
 import io.github.javaarchive.omniverse.database.LevelDatabase;
@@ -72,6 +70,17 @@ public final class Omniverse extends JavaPlugin implements CommandExecutor {
 
         WarpCommand warp_cmd = new WarpCommand(this);
         this.getCommand("warp").setExecutor(warp_cmd);
+
+        AddRoleCommand add_role_cmd = new AddRoleCommand(this);
+        this.getCommand("add_role").setExecutor(add_role_cmd);
+        // this.getCommand("addrole").setExecutor(add_role_cmd);
+
+        SetPermCommand set_perm_cmd = new SetPermCommand(this);
+        this.getCommand("set_perm").setExecutor(set_perm_cmd);
+        // this.getCommand("setperm").setExecutor(set_perm_cmd);
+
+
+
 
         this.getCommand("debug_die").setExecutor(new DieCommand(this));
     }
