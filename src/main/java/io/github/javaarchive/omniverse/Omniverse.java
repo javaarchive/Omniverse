@@ -11,6 +11,7 @@ import io.github.javaarchive.omniverse.structures.Multiverse;
 import io.github.javaarchive.omniverse.structures.MultiverseUser;
 import io.github.javaarchive.omniverse.structures.Universe;
 import lombok.Getter;
+import lombok.NonNull;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.WorldCreator;
@@ -154,6 +155,7 @@ public final class Omniverse extends JavaPlugin implements CommandExecutor {
         return this.multiverses.get_obj(name, Multiverse.class);
     }
 
+    @NonNull
     public Multiverse multiverseOf(Universe univ){
         return this.getMultiverse(univ.getParentMultiverseName());
     }

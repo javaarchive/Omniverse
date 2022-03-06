@@ -36,16 +36,20 @@ public class PlayerContext {
         this.player = player;
         this.ov = omniverse;
         this.setMultiversedWorld(this.player.isOnline());
+        this.setOnline(player.isOnline());
         if(this.isOnline()){
             String worldName = this.player.getWorld().getName();
             if(this.ov.hasUniverse(worldName)){
-                this.setMultiversedWorld(true);
                 this.uv = this.ov.getUniverse(worldName);
                 this.uvName = worldName;
                 this.mv = this.ov.multiverseOf(this.uv);
+
+                this.setMultiversedWorld(true);
             }else{
                 this.setMultiversedWorld(false);
             }
+        }else{
+            this.setMultiversedWorld(false);
         }
     }
 
@@ -69,5 +73,9 @@ public class PlayerContext {
         }else{
             return masterPerms;
         }
+    }
+
+    public String toString(){
+        return "[PlayerContext username="+this.player.getName() + " isMultiverse="+this.isMultiversedWorld() + " mv=" + this.mv + " uv=" + this.uv + "]";
     }
 }

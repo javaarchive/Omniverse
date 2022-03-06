@@ -1,5 +1,7 @@
 package io.github.javaarchive.omniverse;
 
+import io.github.javaarchive.omniverse.contexting.PlayerContext;
+import io.github.javaarchive.omniverse.structures.Permission;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -67,6 +69,18 @@ public class OmniverseEvents implements Listener {
             if(event.getPlayer() != null){
                 event.getPlayer().sendRawMessage(ChatColor.DARK_RED + "Portals not implemented " + ChatColor.RESET);
             }
+        }
+    }
+
+    @EventHandler
+    public void onDrop(PlayerDropItemEvent event){
+        PlayerContext pctx = new PlayerContext(event.getPlayer());
+        System.out.println(pctx);
+        if(!pctx.isMultiversedWorld()){
+            return;
+        }
+        if(pctx.checkPerm("player.drop_item") != Permission.ALLOW){
+            event.setCancelled(true);
         }
     }
 }
