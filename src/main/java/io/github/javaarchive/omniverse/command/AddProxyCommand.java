@@ -25,7 +25,7 @@ public class AddProxyCommand implements CommandExecutor{
             String[] subArgs = Arrays.copyOfRange(args, 1, args.length);
             if(args[0].equals("role")){
                 // /add role
-
+                return this.add_role_cmd.onCommand(sender,this.ov.getCommand("add_role"),"add_role", subArgs);
             }
         }
         return false;
