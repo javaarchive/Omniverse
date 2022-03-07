@@ -27,7 +27,8 @@ public class AddRoleCommand implements CommandExecutor {
 
         Multiverse mv = null;
         if(args.length >= 2){
-            mv = this.omniverse.getMultiverse(args[0]);
+            // Get multiverse from last argument
+            mv = this.omniverse.getMultiverse(args[args.length - 1]);
             if(mv == null){
                 sender.sendMessage("Specified multiverse not found. ");
                 return true;
@@ -56,7 +57,7 @@ public class AddRoleCommand implements CommandExecutor {
 
         // Set the permission
         //                   role
-        mv.perms.appendRole(args[args.length - 1]);
+        mv.perms.appendRole(args[0]);
         sender.sendMessage("Role added! You now have " + mv.perms.getRoleList().size() + " roles!");
         return true;
     }
