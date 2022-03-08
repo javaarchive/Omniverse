@@ -27,9 +27,16 @@ commands:
   add_role:
     description: Add a role
     permission: omniverse.multiverse.manage_roles
+  add:
+    description: Add various things
+  assign_role:
+    description: Assign a role to someone or yourself
   set_perm:
     description: Set permission
     permission: omniverse.multiverse.manage_perms
+  debug:
+    description: Debugs plugin internals
+    aliases: [debugger]
 permissions:
   omniverse.*:
     description: Unlimited access. Use for admins!

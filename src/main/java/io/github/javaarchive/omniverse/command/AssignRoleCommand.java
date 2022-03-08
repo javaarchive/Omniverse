@@ -3,12 +3,16 @@ package io.github.javaarchive.omniverse.command;
 import io.github.javaarchive.omniverse.Omniverse;
 import io.github.javaarchive.omniverse.contexting.PlayerContext;
 import io.github.javaarchive.omniverse.structures.Multiverse;
+import io.github.javaarchive.omniverse.structures.MultiverseUser;
 import io.github.javaarchive.omniverse.structures.Permission;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+
+import java.util.Optional;
 
 public class AssignRoleCommand implements CommandExecutor {
     Omniverse omniverse;
@@ -26,38 +30,50 @@ public class AssignRoleCommand implements CommandExecutor {
         boolean grantedPrivileges = false;
 
         Multiverse mv = null;
-        if(args.length >= 2){
-            // Get multiverse from last argument
-            mv = this.omniverse.getMultiverse(args[args.length - 1]);
-            if(mv == null){
-                sender.sendMessage("Specified multiverse not found. ");
-                return true;
-            }
-        }else{
-            if(sender instanceof Player){
-                Player player = (Player) sender;
-                PlayerContext pctx = new PlayerContext(player);
-                if(!pctx.isMultiversedWorld()){
-                    player.sendRawMessage(ChatColor.RED + "You are not in a multiverse!" + ChatColor.RESET);
-                }
-                mv = pctx.mv;
-                grantedPrivileges = mv.checkOwnership(player.getUniqueId());
-            }else{
-                // TODO: Configure trusting console
-                grantedPrivileges = true; // We trust console right?
-                sender.sendMessage("When running from non-player you must specify the multiverse as the first argument. ");
-                return true;
-            }
+
+        if(!(sender instanceof Player)){
+            sender.sendMessage("Console role giving not supported yet. ");
+            return true;
         }
+
+        Player player = (Player) sender;
+        PlayerContext pctx = new PlayerContext(player);
+        if(!pctx.isMultiversedWorld()){
+            player.sendRawMessage(ChatColor.RED + "You are not in a multiverse!" + ChatColor.RESET);
+        }
+        mv = pctx.mv;
+        grantedPrivileges = mv.checkOwnership(player.getUniqueId());
 
         if(!grantedPrivileges){
             sender.sendMessage("Insufficient Privileges. ");
             return true;
         }
 
-        // Set the permission
-        //                   role
-        
+        Player targetPlayer = (Player) sender;
+
+        if(args.length > 1){
+            Optional<? extends Player> possiblePlayer = Bukkit.getOnlinePlayers().stream().filter(p -> p.getName().equals(args[0])).findFirst();
+            if(!possiblePlayer.isPresent()){
+                sender.sendMessage("Player is not online. We support adding roles to online players only at the moment. ");
+                return true;
+            }
+            targetPlayer = possiblePlayer.get();
+        }
+
+        // Add the role
+        if(!pctx.mv.perms.hasRole(args[args.length - 1])){
+            player.sendRawMessage(ChatColor.RED + "Role not found! " + ChatColor.RESET);
+        }
+
+        MultiverseUser mu = pctx.getMemberData();
+
+        if(mu.getRoles().contains(args[args.length - 1])){
+            player.sendRawMessage(ChatColor.RED + "Player already has role! " + ChatColor.RESET);
+            return true;
+        }
+
+        mu.getRoles().add(args[args.length - 1]);
+
         sender.sendMessage("Role added! You now have " + mv.perms.getRoleList().size() + " roles!");
         return true;
     }

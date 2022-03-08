@@ -61,7 +61,7 @@ public class PlayerContext {
     }
 
     public void setMemberData(MultiverseUser mu){
-        this.ov.setMultiverseUserPRofile(this.uv.getParentMultiverseName(), this.player.getUniqueId(), mu);
+        this.ov.setMultiverseUserProfile(this.uv.getParentMultiverseName(), this.player.getUniqueId(), mu);
     }
 
     public Permission checkPerm(String name){
@@ -88,6 +88,6 @@ public class PlayerContext {
 
     public static PlayerContext fromOffline(String name){
         OfflinePlayer oPlayer = Bukkit.getPlayer(name);
-        
+        return (new PlayerContext((Player) oPlayer));
     }
 }

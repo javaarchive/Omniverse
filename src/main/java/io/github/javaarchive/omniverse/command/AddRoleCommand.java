@@ -26,9 +26,11 @@ public class AddRoleCommand implements CommandExecutor {
         boolean grantedPrivileges = false;
 
         Multiverse mv = null;
+        String mvName = "";
         if(args.length >= 2){
             // Get multiverse from last argument
-            mv = this.omniverse.getMultiverse(args[args.length - 1]);
+            mvName = args[0];
+            mv = this.omniverse.getMultiverse(args[0]);
             if(mv == null){
                 sender.sendMessage("Specified multiverse not found. ");
                 return true;
@@ -40,6 +42,7 @@ public class AddRoleCommand implements CommandExecutor {
                 if(!pctx.isMultiversedWorld()){
                     player.sendRawMessage(ChatColor.RED + "You are not in a multiverse!" + ChatColor.RESET);
                 }
+                mvName = pctx.uv.getParentMultiverseName();
                 mv = pctx.mv;
                 grantedPrivileges = mv.checkOwnership(player.getUniqueId());
             }else{
@@ -57,7 +60,10 @@ public class AddRoleCommand implements CommandExecutor {
 
         // Set the permission
         //                   role
-        mv.perms.appendRole(args[0]);
+        mv.perms.appendRole(args[args.length - 1]);
+        // Save
+        System.out.println("Setting " + mvName);
+        this.omniverse.setMultiverse(mvName,mv);
         sender.sendMessage("Role added! You now have " + mv.perms.getRoleList().size() + " roles!");
         return true;
     }

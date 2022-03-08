@@ -8,6 +8,10 @@ import java.util.List;
 import java.util.UUID;
 
 public class Multiverse {
+    public Multiverse(){
+        this.perms = new PermissionSet();
+    }
+
     @Getter @Setter UUID owner;
     @Getter @Setter List<UUID> extraOwners = new ArrayList<>();
 
@@ -34,5 +38,5 @@ public class Multiverse {
         }
     }
 
-    public PermissionSet perms = new PermissionSet();
+    public PermissionSet perms;
 }

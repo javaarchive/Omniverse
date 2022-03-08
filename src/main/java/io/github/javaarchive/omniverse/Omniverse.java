@@ -79,8 +79,14 @@ public final class Omniverse extends JavaPlugin implements CommandExecutor {
         this.getCommand("set_perm").setExecutor(set_perm_cmd);
         // this.getCommand("setperm").setExecutor(set_perm_cmd);
 
+        AssignRoleCommand assign_role_cmd = new AssignRoleCommand(this);
+        this.getCommand("assign_role").setExecutor(assign_role_cmd);
 
+        AddProxyCommand add_proxy_cmd = new AddProxyCommand(this);
+        this.getCommand("add").setExecutor(add_proxy_cmd);
 
+        this.getCommand("debug").setExecutor(new DebugCommand(this));
+        this.getCommand("debugger").setExecutor(new DebugCommand(this));
 
         this.getCommand("debug_die").setExecutor(new DieCommand(this));
     }
@@ -164,6 +170,14 @@ public final class Omniverse extends JavaPlugin implements CommandExecutor {
         return this.multiverses.get_obj(name, Multiverse.class);
     }
 
+    public void setUniverse(String name, Universe uv){
+        this.universes.set_json_from_obj(name, uv);
+    }
+
+    public void setMultiverse(String name, Multiverse mv){
+        this.multiverses.set_json_from_obj(name, mv);
+    }
+
     @NonNull
     public Multiverse multiverseOf(Universe univ){
         return this.getMultiverse(univ.getParentMultiverseName());
@@ -191,7 +205,7 @@ public final class Omniverse extends JavaPlugin implements CommandExecutor {
         return this.multiverseMembers.get_obj(multiverseName + ";" + puuid.toString(), MultiverseUser.class);
     }
 
-    public void setMultiverseUserPRofile(String multiverseName, UUID puuid, MultiverseUser mu){
+    public void setMultiverseUserProfile(String multiverseName, UUID puuid, MultiverseUser mu){
         this.multiverseMembers.set_json_from_obj(multiverseName + ";" + puuid.toString(), mu);
     }
 
