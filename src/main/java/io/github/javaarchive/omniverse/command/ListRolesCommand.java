@@ -14,10 +14,10 @@ import org.bukkit.entity.Player;
 
 import java.util.Optional;
 
-public class AssignRoleCommand implements CommandExecutor {
+public class ListRolesCommand implements CommandExecutor {
     Omniverse omniverse;
 
-    public AssignRoleCommand(Omniverse ov){
+    public ListRolesCommand(Omniverse ov){
         this.omniverse = ov;
     }
 
@@ -27,32 +27,33 @@ public class AssignRoleCommand implements CommandExecutor {
             return false;
         }
 
-        boolean grantedPrivileges = false;
-
         Multiverse mv = null;
+        boolean isConsole = false;
 
         if(!(sender instanceof Player)){
             sender.sendMessage("Console role giving not supported yet. ");
+            isConsole = true;
             return true;
         }
 
-        Player player = (Player) sender;
-        PlayerContext pctx = new PlayerContext(player);
-        if(!pctx.isMultiversedWorld()){
-            player.sendRawMessage(ChatColor.RED + "You are not in a multiverse!" + ChatColor.RESET);
-        }
-        mv = pctx.mv;
-        grantedPrivileges = mv.checkOwnership(player.getUniqueId());
+        Player player = isConsole?null:((Player) sender);
+        
+        if(isConsole){
+            mv = this.omniverse.getMultiverse(args[0]);
+        }else{
+            PlayerContext pctx = new PlayerContext(player);
 
-        if(!grantedPrivileges){
-            sender.sendMessage("Insufficient Privileges. ");
-            return true;
+            if(!pctx.isMultiversedWorld()){
+                player.sendRawMessage(ChatColor.RED + "You are not in a multiverse!" + ChatColor.RESET);
+            }
+
+            mv = pctx.mv;
         }
 
         Player targetPlayer = (Player) sender;
 
         if(args.length > 1){
-            Optional<? extends Player> possiblePlayer = Bukkit.getOnlinePlayers().stream().filter(p -> p.getName().equals(args[0])).findFirst();
+            Optional<? extends Player> possiblePlayer = Bukkit.getOnlinePlayers().stream().filter(p -> p.getName().equals(args[args.length - 1])).findFirst();
             if(!possiblePlayer.isPresent()){
                 sender.sendMessage("Player is not online. We support adding roles to online players only at the moment. ");
                 return true;
@@ -60,21 +61,13 @@ public class AssignRoleCommand implements CommandExecutor {
             targetPlayer = possiblePlayer.get();
         }
 
-        // Add the role
-        if(!pctx.mv.perms.hasRole(args[args.length - 1])){
-            player.sendRawMessage(ChatColor.RED + "Role not found! " + ChatColor.RESET);
-        }
+        PlayerContext pctx = new PlayerContext(targetPlayer);
 
         MultiverseUser mu = pctx.getMemberData();
 
-        if(mu.getRoles().contains(args[args.length - 1])){
-            player.sendRawMessage(ChatColor.RED + "Player already has role! " + ChatColor.RESET);
-            return true;
-        }
-
-        mu.getRoles().add(args[args.length - 1]);
-
-        sender.sendMessage("Role added! You now have " + mu.getRoles().size() + " roles!");
+        String roleStr = String.join(",",pctx.mv.perms.sortRoles(mu.getRoles()));
+        sender.sendMessage("Your/Player's roles: " + roleStr );
+        
         return true;
     }
 }

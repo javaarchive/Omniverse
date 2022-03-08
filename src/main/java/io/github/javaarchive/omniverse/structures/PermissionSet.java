@@ -29,7 +29,7 @@ public class PermissionSet {
     }
 
     // Priority roles first
-    private List<String> sortRoles(List<String> roles){
+    public List<String> sortRoles(List<String> roles){
         Map<String, Integer> roleInv = roleInverseIndex;
         roles.sort(new Comparator<String>() {
 
