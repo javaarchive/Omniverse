@@ -191,6 +191,10 @@ public final class Omniverse extends JavaPlugin implements CommandExecutor {
         return this.multiverseMembers.get_obj(multiverseName + ";" + puuid.toString(), MultiverseUser.class);
     }
 
+    public void setMultiverseUserPRofile(String multiverseName, UUID puuid, MultiverseUser mu){
+        this.multiverseMembers.set_json_from_obj(multiverseName + ";" + puuid.toString(), mu);
+    }
+
     public static Omniverse getInstance(){
         return (Omniverse) Arrays.stream(Bukkit.getPluginManager().getPlugins()).filter(plugin -> plugin instanceof Omniverse).findFirst().get();
     }

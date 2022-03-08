@@ -4,6 +4,9 @@ import io.github.javaarchive.omniverse.structures.MultiverseUser;
 import io.github.javaarchive.omniverse.structures.Permission;
 import lombok.Getter;
 import lombok.Setter;
+
+import org.bukkit.Bukkit;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 
 import io.github.javaarchive.omniverse.Omniverse;
@@ -57,6 +60,10 @@ public class PlayerContext {
         return this.ov.getMultiverseUserProfile(this.uv.getParentMultiverseName(), this.player.getUniqueId());
     }
 
+    public void setMemberData(MultiverseUser mu){
+        this.ov.setMultiverseUserPRofile(this.uv.getParentMultiverseName(), this.player.getUniqueId(), mu);
+    }
+
     public Permission checkPerm(String name){
 
         if(!this.isMultiversedWorld()){
@@ -77,5 +84,10 @@ public class PlayerContext {
 
     public String toString(){
         return "[PlayerContext username="+this.player.getName() + " isMultiverse="+this.isMultiversedWorld() + " mv=" + this.mv + " uv=" + this.uv + "]";
+    }
+
+    public static PlayerContext fromOffline(String name){
+        OfflinePlayer oPlayer = Bukkit.getPlayer(name);
+        
     }
 }
