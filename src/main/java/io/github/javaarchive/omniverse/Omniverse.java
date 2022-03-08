@@ -85,6 +85,9 @@ public final class Omniverse extends JavaPlugin implements CommandExecutor {
         AddProxyCommand add_proxy_cmd = new AddProxyCommand(this);
         this.getCommand("add").setExecutor(add_proxy_cmd);
 
+        ListRolesCommand list_roles_cmd = new ListRolesCommand(this);
+        this.getCommand("list_roles").setExecutor(list_roles_cmd);
+
         this.getCommand("debug").setExecutor(new DebugCommand(this));
         this.getCommand("debugger").setExecutor(new DebugCommand(this));
 

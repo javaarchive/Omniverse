@@ -31,6 +31,11 @@ commands:
     description: Add various things
   assign_role:
     description: Assign a role to someone or yourself
+    permission: omniverse.multiverse.manage_roles
+  list_roles:
+    description: List the roles someone has in a multiverse.
+    permission: omniverse.multiverse.list_roles
+    aliases: [ls_roles, rolelist, roles]
   set_perm:
     description: Set permission
     permission: omniverse.multiverse.manage_perms
@@ -58,6 +63,9 @@ permissions:
     default: true
   omniverse.multiverse.manage_roles:
     description: Allows managing roles
+    default: true
+  omniverse.multiverse.list_roles:
+    description: Allows listing roles
     default: true
   omniverse.multiverse.manage_perms:
     description: Allows managing permissions
