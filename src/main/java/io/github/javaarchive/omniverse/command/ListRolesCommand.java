@@ -23,15 +23,12 @@ public class ListRolesCommand implements CommandExecutor {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        if(args.length == 0){
-            return false;
-        }
 
         Multiverse mv = null;
         boolean isConsole = false;
 
         if(!(sender instanceof Player)){
-            sender.sendMessage("Console role giving not supported yet. ");
+            sender.sendMessage("Console role listing not supported yet. ");
             isConsole = true;
             return true;
         }
@@ -45,6 +42,7 @@ public class ListRolesCommand implements CommandExecutor {
 
             if(!pctx.isMultiversedWorld()){
                 player.sendRawMessage(ChatColor.RED + "You are not in a multiverse!" + ChatColor.RESET);
+                return true;
             }
 
             mv = pctx.mv;
@@ -66,7 +64,9 @@ public class ListRolesCommand implements CommandExecutor {
         MultiverseUser mu = pctx.getMemberData();
 
         String roleStr = String.join(",",pctx.mv.perms.sortRoles(mu.getRoles()));
+        String allRolesStr = String.join(",",pctx.mv.perms.getRoleList());
         sender.sendMessage("Your/Player's roles: " + roleStr );
+        sender.sendMessage("Roles in Multiverse: " + allRolesStr );
         
         return true;
     }

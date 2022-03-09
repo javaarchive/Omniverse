@@ -75,6 +75,9 @@ public final class Omniverse extends JavaPlugin implements CommandExecutor {
         this.getCommand("add_role").setExecutor(add_role_cmd);
         // this.getCommand("addrole").setExecutor(add_role_cmd);
 
+        DeleteRoleCommand delete_role_cmd = new DeleteRoleCommand(this);
+        this.getCommand("delete_role").setExecutor(delete_role_cmd);
+
         SetPermCommand set_perm_cmd = new SetPermCommand(this);
         this.getCommand("set_perm").setExecutor(set_perm_cmd);
         // this.getCommand("setperm").setExecutor(set_perm_cmd);

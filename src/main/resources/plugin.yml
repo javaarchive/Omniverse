@@ -27,6 +27,9 @@ commands:
   add_role:
     description: Add a role
     permission: omniverse.multiverse.manage_roles
+  delete_role:
+    description: Delete a role
+    permission: omniverse.multiverse.delete_roles
   add:
     description: Add various things
   assign_role:

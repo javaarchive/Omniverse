@@ -74,7 +74,10 @@ public class AssignRoleCommand implements CommandExecutor {
 
         mu.getRoles().add(args[args.length - 1]);
 
+        pctx.setMemberData(mu);
+
         sender.sendMessage("Role added! You now have " + mu.getRoles().size() + " roles!");
+
         return true;
     }
 }

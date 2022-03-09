@@ -43,9 +43,9 @@ public class PermissionSet {
 
     public Permission getPermWithRoles(List<String> roles, String perm){
         roles = this.sortRoles(roles);
-        
+
         for(String role: roles){
-            if(this.pData.get(role).containsKey(perm) && this.pData.get(role).get(perm) != Permission.NETURAL){
+            if(this.pData.containsKey(role) && this.pData.get(role).containsKey(perm) && this.pData.get(role).get(perm) != Permission.NETURAL){
                 return this.pData.get(role).get(perm);
             }
         }
@@ -65,6 +65,7 @@ public class PermissionSet {
 
     public void removeRole(String role){
         this.roleList.remove(role);
+        this.pData.remove(role);
         this.rebuildInvIndex(); // TODO: Optimize
     }
 

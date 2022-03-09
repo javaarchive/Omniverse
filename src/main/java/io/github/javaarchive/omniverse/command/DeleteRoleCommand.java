@@ -3,17 +3,16 @@ package io.github.javaarchive.omniverse.command;
 import io.github.javaarchive.omniverse.Omniverse;
 import io.github.javaarchive.omniverse.contexting.PlayerContext;
 import io.github.javaarchive.omniverse.structures.Multiverse;
-import io.github.javaarchive.omniverse.structures.Permission;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-public class AddRoleCommand implements CommandExecutor {
+public class DeleteRoleCommand implements CommandExecutor {
     Omniverse omniverse;
 
-    public AddRoleCommand(Omniverse ov){
+    public DeleteRoleCommand(Omniverse ov){
         this.omniverse = ov;
     }
 
@@ -58,18 +57,16 @@ public class AddRoleCommand implements CommandExecutor {
             return true;
         }
 
-        if(mv.perms.hasRole(args[args.length - 1])){
-            sender.sendMessage("Role already exists");
-            return true;
-        }
-
         // Set the permission
+
+        // TODO: Yell if role never existed
+
         //                   role
-        mv.perms.appendRole(args[args.length - 1]);
+        mv.perms.removeRole(args[args.length - 1]);
         // Save
         System.out.println("Setting " + mvName);
         this.omniverse.setMultiverse(mvName,mv);
-        sender.sendMessage("Role added! You now have " + mv.perms.getRoleList().size() + " roles!");
+        sender.sendMessage("Role Deleted! You now have " + mv.perms.getRoleList().size() + " roles!");
         return true;
     }
 }
