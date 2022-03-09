@@ -21,27 +21,33 @@ commands:
   warp:
     description: Allows traveling between universes that the player has permission to enter via warp.
     permission: omniverse.universe.warp
+    usage: warp <universe>
   debug_die:
     description: This command kills the plugin database systems pre-reload to avoid a bug with missing classes of bukkit reload. Accesible only via console.
     permission-message: And you think you're very smart huh?
   add_role:
     description: Add a role
     permission: omniverse.multiverse.manage_roles
+    usage: add_role [Optional Multiverse] <Role> <Permission> allow/deny/netural
   unassign_role:
     description: Removes a role from a user
     permission: omniverse.multiverse.manage_roles
+    usage: unassign_role [user] <role>
   delete_role:
     description: Delete a role
     permission: omniverse.multiverse.delete_roles
+    usage: delete_role [multiverse] <role>
   add:
     description: Add various things
   assign_role:
     description: Assign a role to someone or yourself
     permission: omniverse.multiverse.manage_roles
+    usage: assign_role [user] <role>
   list_roles:
     description: List the roles someone has in a multiverse.
     permission: omniverse.multiverse.list_roles
     aliases: [ls_roles, rolelist, roles]
+    usage: list_roles [user]
   set_perm:
     description: Set permission
     permission: omniverse.multiverse.manage_perms

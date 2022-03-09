@@ -58,6 +58,7 @@ public class AssignRoleCommand implements CommandExecutor {
                 return true;
             }
             targetPlayer = possiblePlayer.get();
+            pctx = new PlayerContext(targetPlayer);
         }
 
         // Add the role
