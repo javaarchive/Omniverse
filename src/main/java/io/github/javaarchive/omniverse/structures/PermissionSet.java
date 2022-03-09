@@ -19,6 +19,7 @@ public class PermissionSet {
     }
 
     public Permission setPerm(String role, String perm, Permission value){
+        if(!pData.containsKey(role)) pData.put(role, new HashMap<>());
         Permission oldValue = pData.get(role).get(perm);
         pData.get(role).put(perm, value);
         return oldValue;
