@@ -43,8 +43,16 @@ public class OmniverseEvents implements Listener {
             if(this.plugin.getConfig().contains("lobby_welcome_message")) {
                 event.getPlayer().sendMessage(this.plugin.config.getString("lobby_welcome_message"));
             }
-            if(this.plugin.config.contains("should_auto_tp_to_lobby_on_join") && this.plugin.config.getBoolean("should_auto_tp_to_lobby_on_join")) {
+            if(this.plugin.getConfig().contains("should_auto_tp_to_lobby_on_join") && this.plugin.config.getBoolean("should_auto_tp_to_lobby_on_join")) {
                 event.getPlayer().teleport(this.plugin.lobby.getSpawn());
+            }
+        }
+
+        PlayerContext pctx = new PlayerContext(event.getPlayer());
+        if(pctx.isMultiversedWorld()){
+            if(pctx.mv.isTutorialMode()){
+                // Send tutorial message
+                pctx.player.sendMessage(this.plugin.getConfig().getString("tutorial_message"));
             }
         }
     }
@@ -68,6 +76,8 @@ public class OmniverseEvents implements Listener {
             event.setCancelled(true);
             if(event.getPlayer() != null){
                 event.getPlayer().sendRawMessage(ChatColor.DARK_RED + "Portals not implemented " + ChatColor.RESET);
+            }else{
+                event.setCancelled(false);
             }
         }
     }
