@@ -26,8 +26,10 @@ public class SetPermCommand implements CommandExecutor {
         boolean grantedPrivileges = false;
 
         Multiverse mv = null;
+        String mvName = "";
         if(args.length >= 4){
             mv = this.omniverse.getMultiverse(args[0]);
+            mvName = args[0];
             if(mv == null){
                 sender.sendMessage("Specified multiverse not found. ");
                 return true;
@@ -40,6 +42,7 @@ public class SetPermCommand implements CommandExecutor {
                     player.sendRawMessage(ChatColor.RED + "You are not in a multiverse!" + ChatColor.RESET);
                 }
                 mv = pctx.mv;
+                mvName = pctx.uv.getParentMultiverseName();
                 grantedPrivileges = mv.checkOwnership(player.getUniqueId());
             }else{
                 // TODO: Configure trusting console
@@ -62,6 +65,8 @@ public class SetPermCommand implements CommandExecutor {
         // Set the permission
         //                role                   perms
         mv.perms.setPerm(args[args.length - 3],args[args.length - 2], Permission.fromString(args[args.length - 1]));
+
+        this.omniverse.setMultiverse(mvName,mv); // Save!
 
         sender.sendMessage("Permission Set/Updated");
 

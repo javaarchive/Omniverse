@@ -85,6 +85,9 @@ public final class Omniverse extends JavaPlugin implements CommandExecutor {
         AssignRoleCommand assign_role_cmd = new AssignRoleCommand(this);
         this.getCommand("assign_role").setExecutor(assign_role_cmd);
 
+        UnassignRoleCommand unassign_role_cmd = new UnassignRoleCommand(this);
+        this.getCommand("unassign_role").setExecutor(unassign_role_cmd);
+
         ListRolesCommand list_roles_cmd = new ListRolesCommand(this);
         this.getCommand("list_roles").setExecutor(list_roles_cmd);
         
