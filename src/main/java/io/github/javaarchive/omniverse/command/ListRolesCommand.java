@@ -65,6 +65,7 @@ public class ListRolesCommand implements CommandExecutor {
 
         String roleStr = String.join(",",pctx.mv.perms.sortRoles(mu.getRoles()));
         String allRolesStr = String.join(",",pctx.mv.perms.getRoleList());
+        
         sender.sendMessage("Your/Player's roles: " + roleStr );
         sender.sendMessage("Roles in Multiverse: " + allRolesStr );
         

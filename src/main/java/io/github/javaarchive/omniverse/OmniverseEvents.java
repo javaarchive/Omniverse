@@ -92,4 +92,15 @@ public class OmniverseEvents implements Listener {
             event.setCancelled(true);
         }
     }
+
+    @EventHandler
+    public void onDrop(PlayerMoveEvent event){
+        PlayerContext pctx = new PlayerContext(event.getPlayer());
+        if(!pctx.isMultiversedWorld()){
+            return;
+        }
+        if(pctx.checkPerm("player.move") == Permission.DENY){
+            event.setCancelled(true);
+        }
+    }
 }
