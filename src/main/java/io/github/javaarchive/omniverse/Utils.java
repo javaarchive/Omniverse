@@ -27,4 +27,8 @@ public class Utils {
     }
 
     public Gson gson = new GsonBuilder().setPrettyPrinting().create();
+
+    public static void test(){
+        // (Unused) Test Code and Autocomplete
+    }
 }
