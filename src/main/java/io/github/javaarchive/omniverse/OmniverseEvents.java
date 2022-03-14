@@ -20,6 +20,7 @@ public class OmniverseEvents implements Listener {
     Omniverse plugin;
     public OmniverseEvents(Omniverse plugin){
         this.plugin = plugin;
+        this.plugin.permsReg.addPerm("player.drop_item");
     }
 
     @EventHandler

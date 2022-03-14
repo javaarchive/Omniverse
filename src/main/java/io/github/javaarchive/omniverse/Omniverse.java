@@ -7,6 +7,7 @@ import io.github.javaarchive.omniverse.database.LevelDatabase;
 import io.github.javaarchive.omniverse.database.NamespacedDatabase;
 import io.github.javaarchive.omniverse.structures.Multiverse;
 import io.github.javaarchive.omniverse.structures.MultiverseUser;
+import io.github.javaarchive.omniverse.structures.PermissionRegistry;
 import io.github.javaarchive.omniverse.structures.Universe;
 import lombok.Getter;
 import lombok.NonNull;
@@ -37,6 +38,8 @@ public final class Omniverse extends JavaPlugin implements CommandExecutor {
 
     public FileConfiguration config; // public so not to be confused with the original getConfig
 
+    public PermissionRegistry permsReg;
+
     @Getter
     Lobby lobby;
 
@@ -45,8 +48,6 @@ public final class Omniverse extends JavaPlugin implements CommandExecutor {
         // Plugin startup logic
         this.saveDefaultConfig();
         this.config = this.getConfig();
-
-
 
         config.options().copyDefaults(true);
         saveConfig();
@@ -57,6 +58,7 @@ public final class Omniverse extends JavaPlugin implements CommandExecutor {
         this.db = new LevelDatabase(this.dbOpts);
         this.onCentralDatabaseInit();
 
+        this.permsReg = new PermissionRegistry();
 
         this.eventListener = new OmniverseEvents(this);
         getServer().getPluginManager().registerEvents(this.eventListener,this);

@@ -86,6 +86,4 @@ public class PermissionSet {
             this.roleInverseIndex.put(roleList.get(i), i);
         }
     }
-
-
 }
