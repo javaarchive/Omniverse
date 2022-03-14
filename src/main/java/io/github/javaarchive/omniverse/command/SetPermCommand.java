@@ -62,6 +62,11 @@ public class SetPermCommand implements CommandExecutor {
             return true;
         }
 
+        if(!this.omniverse.permsReg.hasPerm(args[args.length - 2])){
+            sender.sendMessage("Not a valid permission");
+            return true;
+        }
+
         // Set the permission
         //                role                   perms
         mv.perms.setPerm(args[args.length - 3],args[args.length - 2], Permission.fromString(args[args.length - 1]));
