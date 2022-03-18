@@ -90,4 +90,9 @@ public class PlayerContext {
         OfflinePlayer oPlayer = Bukkit.getPlayer(name);
         return (new PlayerContext((Player) oPlayer));
     }
+
+    public void test(){
+        // Test code and autocomplete test
+        
+    }
 }
