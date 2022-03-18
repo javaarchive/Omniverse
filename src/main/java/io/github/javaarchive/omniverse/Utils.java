@@ -7,6 +7,9 @@ import org.bukkit.ChatColor;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.entity.Player;
 
+import io.github.javaarchive.omniverse.structures.Permission;
+import net.md_5.bungee.api.chat.TextComponent;
+
 public class Utils {
     public static void resetPlayer(Player player){
         player.setLevel(0);
@@ -30,5 +33,23 @@ public class Utils {
 
     public static void test(){
         // (Unused) Test Code and Autocomplete
+    }
+
+    public static TextComponent colorized(Permission perm){
+        TextComponent tc = new TextComponent(perm.toString());
+        switch(perm){
+            case ALLOW:
+                tc.setColor(net.md_5.bungee.api.ChatColor.GREEN);
+                break;
+            case DENY:
+                tc.setColor(net.md_5.bungee.api.ChatColor.RED);
+                break;
+            case NETURAL:
+                tc.setColor(net.md_5.bungee.api.ChatColor.DARK_GRAY);
+                break;
+            default:
+                tc.setColor(net.md_5.bungee.api.ChatColor.GRAY);
+        }
+        return tc;
     }
 }
