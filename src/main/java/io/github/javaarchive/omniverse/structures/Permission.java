@@ -27,6 +27,7 @@ public enum Permission {
         }else if(this.equals(Permission.NETURAL)){
             return "netural";
         }
+        return "unknown";
     }
 
     public String toStringCapitalized(){
@@ -37,5 +38,6 @@ public enum Permission {
         }else if(this.equals(Permission.NETURAL)){
             return "Netural";
         }
+        return "Unknown";
     }
 }
